@@ -1,0 +1,89 @@
+# treesync-verify
+
+treesync-verify proves whether two local directory trees match under an
+explicit bytes or metadata policy.
+
+Status: 0.1.0 implementation pending release evidence.
+
+CI: https://github.com/joshiii-xyz/treesync-verify/actions
+
+## Install
+
+```text
+cargo install treesync-verify
+```
+
+## Quick start
+
+```text
+treesync-verify compare LEFT RIGHT --mode bytes
+treesync-verify compare LEFT RIGHT --mode metadata
+treesync-verify explain report.json
+```
+
+## What it solves
+
+Build and artifact workflows can inspect path presence, content, metadata,
+symlink issues, hardlink topology, permissions, and sparse indicators without
+silently treating an omitted property as proven equal.
+
+## How it works
+
+The verifier performs sorted, read-only traversal with `symlink_metadata` and
+does not follow directory symlinks. Bytes mode hashes regular files up to a
+64 MiB bound. Metadata mode compares observable metadata without reading file
+content. Reports use `different`, `inconclusive`, or
+`identical_under_policy` verdicts.
+
+## Commands and library API
+
+The CLI provides `compare` and `explain`. The library exposes
+`compare_trees`, `explain_report`, `CompareMode`, and `ComparisonReport`.
+Use `treesync-verify --help` for the complete option list.
+
+## Output and exit codes
+
+- Exit code 0 means the selected policy matched.
+- Exit code 1 means an observable difference was found.
+- Exit code 2 means the result is inconclusive or the report could not be read.
+
+Every report lists its `mode`, `omitted` dimensions, `differences`, and read
+errors. The traversal limit is 100,000 entries at depth 256. Files above 64
+MiB are not hashed in bytes mode.
+
+## Safety and data handling
+
+The tool reads local metadata and bounded regular-file bytes. It does not
+modify, extract, synchronize, or upload tree contents. Report paths and errors
+may include operator-supplied names, so store reports with suitable
+permissions.
+
+## Limits and non-goals
+
+See [`docs/limits.md`](docs/limits.md). Linux is the only release-tested
+platform. This is not rsync, a backup system, a deployment system, or a
+race-free filesystem snapshot tool.
+
+## Testing and development
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`docs/release.md`](docs/release.md)
+for the verified command set.
+
+## Research
+
+See [`docs/research.md`](docs/research.md) for the filesystem API source trail
+and the distinction between documented facts and design inference.
+
+## Release and support status
+
+The 0.1.0 release is pending local and hosted evidence. The release record
+will be updated only after the exact package, checksum, docs.rs, CI, security,
+CodeQL, tag package, and fresh-install checks pass.
+
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## License
+
+MIT. See [`LICENSE`](LICENSE).
