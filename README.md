@@ -3,7 +3,7 @@
 treesync-verify proves whether two local directory trees match under an
 explicit bytes or metadata policy.
 
-Status: released v0.1.0.
+Status: 0.1.0 implementation pending release evidence.
 
 CI: https://github.com/joshiii-xyz/treesync-verify/actions
 
