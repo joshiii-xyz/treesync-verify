@@ -3,7 +3,7 @@
 treesync-verify proves whether two local directory trees match under an
 explicit bytes or metadata policy.
 
-Status: 0.1.0 implementation pending release evidence.
+Status: released v0.1.0.
 
 CI: https://github.com/joshiii-xyz/treesync-verify/actions
 
@@ -54,36 +54,3 @@ MiB are not hashed in bytes mode.
 ## Safety and data handling
 
 The tool reads local metadata and bounded regular-file bytes. It does not
-modify, extract, synchronize, or upload tree contents. Report paths and errors
-may include operator-supplied names, so store reports with suitable
-permissions.
-
-## Limits and non-goals
-
-See [`docs/limits.md`](docs/limits.md). Linux is the only release-tested
-platform. This is not rsync, a backup system, a deployment system, or a
-race-free filesystem snapshot tool.
-
-## Testing and development
-
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`docs/release.md`](docs/release.md)
-for the verified command set.
-
-## Research
-
-See [`docs/research.md`](docs/research.md) for the filesystem API source trail
-and the distinction between documented facts and design inference.
-
-## Release and support status
-
-The 0.1.0 release is pending local and hosted evidence. The release record
-will be updated only after the exact package, checksum, docs.rs, CI, security,
-CodeQL, tag package, and fresh-install checks pass.
-
-## Contributing
-
-See [`CONTRIBUTING.md`](CONTRIBUTING.md).
-
-## License
-
-MIT. See [`LICENSE`](LICENSE).
